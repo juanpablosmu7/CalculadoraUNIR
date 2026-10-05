@@ -3,9 +3,13 @@ def ingresar_calificaciones():
     calificaciones = []
 
     while True:
-        materia = input("\nIntroduce el nombre de la materia: ")
+        continuar = input("\n¿Deseas introducir una materia? (s/n): ").lower()
 
-        # Validación de la calificación
+        if continuar != "s":
+            break
+
+        materia = input("Introduce el nombre de la materia: ")
+
         while True:
             try:
                 calificacion = float(input("Introduce la calificación (0-10): "))
@@ -18,15 +22,8 @@ def ingresar_calificaciones():
             except ValueError:
                 print("Error: debes introducir un número.")
 
-        # Guardamos los datos en listas separadas
         materias.append(materia)
         calificaciones.append(calificacion)
-
-        # Preguntamos si desea continuar
-        continuar = input("¿Deseas introducir otra materia? (s/n): ").lower()
-
-        if continuar != "s":
-            break
 
     return materias, calificaciones
 
@@ -68,20 +65,18 @@ def main():
 
     materias, calificaciones = ingresar_calificaciones()
 
-    # Comprobamos que se haya introducido alguna materia
+    # Caso especial: no se ha introducido ninguna materia
     if len(materias) == 0:
         print("\nNo se ha introducido ninguna materia.")
         print("Programa finalizado.")
         return
 
-    # Realizamos los cálculos
     promedio = calcular_promedio(calificaciones)
 
     aprobadas, reprobadas = determinar_estado(calificaciones)
 
     indice_maximo, indice_minimo = encontrar_extremos(calificaciones)
 
-    # Mostramos el resumen
     print("\n========== RESUMEN FINAL ==========")
 
     print("\nMaterias y calificaciones:")
